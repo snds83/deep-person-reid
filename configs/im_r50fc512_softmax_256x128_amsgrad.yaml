@@ -3,14 +3,14 @@ model:
   pretrained: True
 
 data:
-  type: 'image'
-  sources: ['market1501']
-  targets: ['market1501']
+  type: 'video'
+  sources: ['mars']
+  targets: ['mars']
   height: 256
   width: 128
   combineall: False
   transforms: ['random_flip']
-  save_dir: 'log/resnet50_fc512_market1501_softmax'
+  save_dir: 'log'
 
 loss:
   name: 'softmax'
@@ -20,7 +20,7 @@ loss:
 train:
   optim: 'amsgrad'
   lr: 0.0003
-  max_epoch: 60
+  max_epoch: 20
   batch_size: 32
   fixbase_epoch: 5
   open_layers: ['fc', 'classifier']
@@ -33,4 +33,4 @@ test:
   normalize_feature: False
   evaluate: False
   eval_freq: -1
-  rerank: False
+  rerank: True

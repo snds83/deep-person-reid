@@ -1,3 +1,6 @@
+#python scripts/main.py --config-file configs/im_osnet_x1_0_softmax_256x128_amsgrad_cosine.yaml --transforms random_flip random_erase --root
+#python scripts/main.py --config-file configs/im_r50fc512_softmax_256x128_amsgrad.yaml --root torchreid/data model.load_weights log/resnet50_fc512_market1501_softmax/model/model.pth.tar-60 test.evaluate True
+
 import sys
 import time
 import os.path as osp

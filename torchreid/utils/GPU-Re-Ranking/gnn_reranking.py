@@ -18,7 +18,6 @@
 
 import numpy as np
 import torch
-
 import gnn_propagate
 import build_adjacency_matrix
 from utils import *

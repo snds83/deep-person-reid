@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 
-from .tools import *
+from torchreid.utils.tools import *
 from .rerank import re_ranking
 from .loggers import *
 from .avgmeter import *

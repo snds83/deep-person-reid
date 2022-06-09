@@ -4,7 +4,7 @@ import torch
 from torchreid.data.sampler import build_train_sampler
 from torchreid.data.datasets import init_image_dataset, init_video_dataset
 from torchreid.data.transforms import build_transforms
-
+import torchreid
 
 class DataManager(object):
     r"""Base data manager.
@@ -383,7 +383,7 @@ class VideoDataManager(DataManager):
 
     Examples::
 
-        datamanager = torchreid.data.VideoDataManager(
+    datamanager = torchreid.data.VideoDataManager(
             root='path/to/reid-data',
             sources='mars',
             height=256,
@@ -394,11 +394,11 @@ class VideoDataManager(DataManager):
             sample_method='evenly'
         )
 
-        # return train loader of source data
-        train_loader = datamanager.train_loader
+    # return train loader of source data
+    train_loader = datamanager.train_loader
 
-        # return test loader of target data
-        test_loader = datamanager.test_loader
+    # return test loader of target data
+    test_loader = datamanager.test_loader
 
     .. note::
         The current implementation only supports image-like training. Therefore, each image in a

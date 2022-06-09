@@ -1,3 +1,4 @@
+#python tools/visualize_actmap.py --root torchreid/data -d market1501 -m resnet50_fc512 --weights log/resnet50_fc512_market1501_softmax/model/model.pth.tar-60 --save-dir log/resnet50_fc512_market1501_softmax --height 256 --width 128
 """Visualizes CNN activation maps to see where the CNN focuses on to extract features.
 
 Reference:
@@ -5,12 +6,14 @@ Reference:
       performance of convolutional neural networks via attention transfer. ICLR, 2017
     - Zhou et al. Omni-Scale Feature Learning for Person Re-Identification. ICCV, 2019.
 """
+import time
 import numpy as np
 import os.path as osp
 import argparse
 import cv2
 import torch
 from torch.nn import functional as F
+from torchsummary import summary
 
 import torchreid
 from torchreid.utils import (
@@ -49,12 +52,13 @@ def visactmap(
 
         for batch_idx, data in enumerate(data_loader):
             imgs, paths = data['img'], data['impath']
+
             if use_gpu:
                 imgs = imgs.cuda()
 
             # forward to get convolutional feature maps
             try:
-                outputs = model(imgs, return_featuremaps=True)
+                outputs = model.featuremaps(imgs)#, return_featuremaps=True)
             except TypeError:
                 raise TypeError(
                     'forward() got unexpected keyword argument "return_featuremaps". '
@@ -164,10 +168,17 @@ def main():
     if args.weights and check_isfile(args.weights):
         load_pretrained_weights(model, args.weights)
 
+    start_time = time.process_time()
     visactmap(
         model, test_loader, args.save_dir, args.width, args.height, use_gpu
     )
+    end_time = time.process_time()
+    print('Execution Time is %.2fm' % ((end_time - start_time) / 60.0))
+   # print(model)
+   # help(summary)
+  #  summary(model, input_size, batch_size=-1, device='cuda')
 
+    #summary(model,(3,64,64))
 
 if __name__ == '__main__':
     main()

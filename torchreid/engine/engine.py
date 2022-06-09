@@ -113,13 +113,13 @@ class Engine(object):
     def run(
         self,
         save_dir='log',
-        max_epoch=0,
+        max_epoch=60,
         start_epoch=0,
         print_freq=10,
         fixbase_epoch=0,
         open_layers=None,
         start_eval=0,
-        eval_freq=-1,
+        eval_freq=10,
         test_only=False,
         dist_metric='euclidean',
         normalize_feature=False,
@@ -166,6 +166,7 @@ class Engine(object):
             )
 
         if test_only:
+            print('xXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
             self.test(
                 dist_metric=dist_metric,
                 normalize_feature=normalize_feature,
@@ -293,7 +294,7 @@ class Engine(object):
         self,
         dist_metric='euclidean',
         normalize_feature=False,
-        visrank=False,
+        visrank=True,
         visrank_topk=10,
         save_dir='',
         use_metric_cuhk03=False,
@@ -349,7 +350,7 @@ class Engine(object):
         gallery_loader=None,
         dist_metric='euclidean',
         normalize_feature=False,
-        visrank=False,
+        visrank=True,
         visrank_topk=10,
         save_dir='',
         use_metric_cuhk03=False,

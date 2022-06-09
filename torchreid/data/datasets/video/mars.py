@@ -20,12 +20,12 @@ class Mars(VideoDataset):
         - cameras: 6.
     """
     dataset_dir = 'mars'
-    dataset_url = None
+    dataset_url = 'http://www.liangzheng.com.cn/Project/project_mars.html'
 
     def __init__(self, root='', **kwargs):
         self.root = osp.abspath(osp.expanduser(root))
         self.dataset_dir = osp.join(self.root, self.dataset_dir)
-        self.download_dataset(self.dataset_dir, self.dataset_url)
+        #self.download_dataset(self.dataset_dir, self.dataset_url)
 
         self.train_name_path = osp.join(
             self.dataset_dir, 'info/train_name.txt'
@@ -47,6 +47,7 @@ class Mars(VideoDataset):
         self.check_before_run(required_files)
 
         train_names = self.get_names(self.train_name_path)
+        print(self.train_name_path)
         test_names = self.get_names(self.test_name_path)
         track_train = loadmat(self.track_train_info_path
                               )['track_train_info'] # numpy.ndarray (8298, 4)
