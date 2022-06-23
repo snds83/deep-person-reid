@@ -1,4 +1,4 @@
-#python tools/visualize_actmap.py --root torchreid/data -d market1501 -m resnet50_fc512 --weights log/resnet50_fc512_market1501_softmax/model/model.pth.tar-60 --save-dir log/resnet50_fc512_market1501_softmax --height 256 --width 128
+#python tools/visualize_actmap.py --root torchreid/data -d mars -m resnet50_fc512 --weights log/model/model.pth.tar-60 --save-dir log
 """Visualizes CNN activation maps to see where the CNN focuses on to extract features.
 
 Reference:
@@ -20,7 +20,7 @@ from torchreid.utils import (
     check_isfile, mkdir_if_missing, load_pretrained_weights
 )
 
-IMAGENET_MEAN = [0.485, 0.456, 0.406]
+IMAGENET_MEAN =[0.485, 0.456, 0.406]
 IMAGENET_STD = [0.229, 0.224, 0.225]
 GRID_SPACING = 10
 
@@ -55,7 +55,6 @@ def visactmap(
 
             if use_gpu:
                 imgs = imgs.cuda()
-
             # forward to get convolutional feature maps
             try:
                 outputs = model.featuremaps(imgs)#, return_featuremaps=True)
@@ -155,7 +154,21 @@ def main():
         train_sampler='SequentialSampler'
     )
     test_loader = datamanager.test_loader
+    '''
+    datamanager = torchreid.data.VideoDataManager(
+            root=args.root,
+            sources=args.dataset,
+            height=args.height,
+            width=args.width,
+            batch_size_train=3,
+            batch_size_test=3,
+            seq_len=15,
+            sample_method='evenly'
+        )
 
+    # return test loader of target data
+    test_loader = datamanager.test_loader
+    '''
     model = torchreid.models.build_model(
         name=args.model,
         num_classes=datamanager.num_train_pids,

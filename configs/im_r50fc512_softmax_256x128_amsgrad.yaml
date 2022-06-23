@@ -3,9 +3,9 @@ model:
   pretrained: True
 
 data:
-  type: 'video'
-  sources: ['mars']
-  targets: ['mars']
+  type: 'image'
+  sources: ['market1501']
+  targets: ['market1501']
   height: 256
   width: 128
   combineall: False
@@ -20,7 +20,7 @@ loss:
 train:
   optim: 'amsgrad'
   lr: 0.0003
-  max_epoch: 20
+  max_epoch: 10
   batch_size: 32
   fixbase_epoch: 5
   open_layers: ['fc', 'classifier']
@@ -31,6 +31,6 @@ test:
   batch_size: 100
   dist_metric: 'euclidean'
   normalize_feature: False
-  evaluate: False
+  evaluate: True
   eval_freq: -1
   rerank: True

@@ -120,14 +120,14 @@ class Engine(object):
         open_layers=None,
         start_eval=0,
         eval_freq=10,
-        test_only=False,
+        test_only=True,
         dist_metric='euclidean',
         normalize_feature=False,
-        visrank=False,
+        visrank=True,
         visrank_topk=10,
         use_metric_cuhk03=False,
         ranks=[1, 5, 10, 20],
-        rerank=False
+        rerank=True
     ):
         r"""A unified pipeline for training and evaluating a model.
 
@@ -296,10 +296,10 @@ class Engine(object):
         normalize_feature=False,
         visrank=True,
         visrank_topk=10,
-        save_dir='',
+        save_dir='log',
         use_metric_cuhk03=False,
         ranks=[1, 5, 10, 20],
-        rerank=False
+        rerank=True
     ):
         r"""Tests model on target datasets.
 
@@ -352,10 +352,10 @@ class Engine(object):
         normalize_feature=False,
         visrank=True,
         visrank_topk=10,
-        save_dir='',
+        save_dir='log',
         use_metric_cuhk03=False,
         ranks=[1, 5, 10, 20],
-        rerank=False
+        rerank=True
     ):
         batch_time = AverageMeter()
 
