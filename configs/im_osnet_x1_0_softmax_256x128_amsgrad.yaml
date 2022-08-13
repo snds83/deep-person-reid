@@ -5,7 +5,7 @@ model:
 data:
   type: 'image'
   sources: ['market1501']
-  targets: ['market1501']
+  targets: ['grid']
   height: 256
   width: 128
   combineall: False
@@ -33,4 +33,4 @@ test:
   normalize_feature: False
   evaluate: False
   eval_freq: -1
-  rerank: False
+  rerank: True

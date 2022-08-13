@@ -5,7 +5,7 @@ model:
 data:
   type: 'image'
   sources: ['market1501']
-  targets: ['market1501']
+  targets: ['saly']
   height: 256
   width: 128
   combineall: False
@@ -20,7 +20,7 @@ loss:
 train:
   optim: 'amsgrad'
   lr: 0.0003
-  max_epoch: 10
+  max_epoch: 60
   batch_size: 32
   fixbase_epoch: 5
   open_layers: ['fc', 'classifier']

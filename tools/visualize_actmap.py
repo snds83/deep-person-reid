@@ -187,11 +187,11 @@ def main():
     )
     end_time = time.process_time()
     print('Execution Time is %.2fm' % ((end_time - start_time) / 60.0))
-   # print(model)
-   # help(summary)
-  #  summary(model, input_size, batch_size=-1, device='cuda')
+    print(model)
+    help(summary)
+    #summary(model, input_size=0.05, batch_size=-1, device='cuda')
 
-    #summary(model,(3,64,64))
+    summary(model,(3,64,64))
 
 if __name__ == '__main__':
     main()

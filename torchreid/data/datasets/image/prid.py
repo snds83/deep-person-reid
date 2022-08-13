@@ -23,19 +23,19 @@ class PRID(ImageDataset):
         - 200 identities appear in both views (index starts from 1 to 200).
     """
     dataset_dir = 'prid2011'
-    dataset_url = None
+    #dataset_url = None
     _junk_pids = list(range(201, 750))
 
     def __init__(self, root='', split_id=0, **kwargs):
         self.root = osp.abspath(osp.expanduser(root))
         self.dataset_dir = osp.join(self.root, self.dataset_dir)
-        self.download_dataset(self.dataset_dir, self.dataset_url)
+        #self.download_dataset(self.dataset_dir, self.dataset_url)
 
         self.cam_a_dir = osp.join(
-            self.dataset_dir, 'prid_2011', 'single_shot', 'cam_a'
+            self.dataset_dir, 'prid2011', 'single_shot', 'cam_a'
         )
         self.cam_b_dir = osp.join(
-            self.dataset_dir, 'prid_2011', 'single_shot', 'cam_b'
+            self.dataset_dir, 'prid2011', 'single_shot', 'cam_b'
         )
         self.split_path = osp.join(self.dataset_dir, 'splits_single_shot.json')
 

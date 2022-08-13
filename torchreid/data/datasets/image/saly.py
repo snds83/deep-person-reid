@@ -9,26 +9,15 @@ from ..dataset import ImageDataset
 
 
 class Saly(ImageDataset):
-    """PRID (single-shot version of prid-2011)
 
-    Reference:
-        Hirzer et al. Person Re-Identification by Descriptive and Discriminative
-        Classification. SCIA 2011.
-
-    URL: `<https://www.tugraz.at/institute/icg/research/team-bischof/lrs/downloads/PRID11/>`_
-
-    Dataset statistics:
-        - Two views.
-        - View A captures 385 identities.
-        - View B captures 749 identities.
-        - 200 identities appear in both views (index starts from 1 to 200).
-    """
     dataset_dir = 'saly'
-   # _junk_pids = list(range(3, 40))
+    # dataset_url = None
+   # _junk_pids = list(range(400, 800))
 
     def __init__(self, root='', split_id=0, **kwargs):
         self.root = osp.abspath(osp.expanduser(root))
         self.dataset_dir = osp.join(self.root, self.dataset_dir)
+        # self.download_dataset(self.dataset_dir, self.dataset_url)
 
         self.cam_a_dir = osp.join(
             self.dataset_dir, 'saly', 'cam_a'
@@ -36,7 +25,7 @@ class Saly(ImageDataset):
         self.cam_b_dir = osp.join(
             self.dataset_dir, 'saly', 'cam_b'
         )
-        self.split_path = osp.join(self.dataset_dir, 'saly.json')
+        self.split_path = osp.join(self.dataset_dir, 'splits_saly.json')
 
         required_files = [self.dataset_dir, self.cam_a_dir, self.cam_b_dir]
         self.check_before_run(required_files)
@@ -60,11 +49,11 @@ class Saly(ImageDataset):
             print('Creating splits ...')
 
             splits = []
-            for _ in range(3):
+            for _ in range(4):
                 # randomly sample 100 IDs for train and use the rest 100 IDs for test
                 # (note: there are only 200 IDs appearing in both views)
-                pids = [i for i in range(1, 3)]
-                train_pids = random.sample(pids, 1)
+                pids = [i for i in range(1, 20)]
+                train_pids = random.sample(pids, 15)
                 train_pids.sort()
                 test_pids = [i for i in pids if i not in train_pids]
                 split = {'train': train_pids, 'test': test_pids}
@@ -83,7 +72,7 @@ class Saly(ImageDataset):
         # train
         train = []
         for pid in train_pids:
-            img_name = 'person_ ('+ str(pid).zfill(2) +').PNG'
+            img_name = 'person_' + str(pid).zfill(4) + '.png'
             pid = train_pid2label[pid]
             img_a_path = osp.join(self.cam_a_dir, img_name)
             train.append((img_a_path, pid, 0))
@@ -93,13 +82,13 @@ class Saly(ImageDataset):
         # query and gallery
         query, gallery = [], []
         for pid in test_pids:
-            img_name = 'person_ ('+ str(pid).zfill(2) +').PNG'
+            img_name = 'person_' + str(pid).zfill(4) + '.png'
             img_a_path = osp.join(self.cam_a_dir, img_name)
             query.append((img_a_path, pid, 0))
             img_b_path = osp.join(self.cam_b_dir, img_name)
             gallery.append((img_b_path, pid, 1))
-        for pid in range(1, 3):
-            img_name = 'person_ ('+ str(pid).zfill(2) +').PNG'
+        for pid in range(10, 60):
+            img_name = 'person_' + str(pid).zfill(4) + '.png'
             img_b_path = osp.join(self.cam_b_dir, img_name)
             gallery.append((img_b_path, pid, 1))
 
