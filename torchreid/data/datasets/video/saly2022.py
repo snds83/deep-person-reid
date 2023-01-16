@@ -7,21 +7,17 @@ from torchreid.utils import read_json
 from ..dataset import VideoDataset
 
 
-class PRID2011(VideoDataset):
-    """PRID2011.
+class Saly2022(VideoDataset):
+    """saly2022.
 
     Reference:
-        Hirzer et al. Person Re-Identification by Descriptive and
-        Discriminative Classification. SCIA 2011.
 
-    URL: `<https://www.tugraz.at/institute/icg/research/team-bischof/lrs/downloads/PRID11/>`_
-    
     Dataset statistics:
-        - identities: 200.
-        - tracklets: 400.
+        - identities: 12.
+        - tracklets: 24.
         - cameras: 2.
     """
-    dataset_dir = 'prid2011'
+    dataset_dir = 'saly2022'
     dataset_url = None
 
     def __init__(self, root='', split_id=0, **kwargs):
@@ -29,12 +25,12 @@ class PRID2011(VideoDataset):
         self.dataset_dir = osp.join(self.root, self.dataset_dir)
         self.download_dataset(self.dataset_dir, self.dataset_url)
 
-        self.split_path = osp.join(self.dataset_dir, 'splits_multi_shot.json')
+        self.split_path = osp.join(self.dataset_dir, 'splits_saly2022.json')
         self.cam_a_dir = osp.join(
-            self.dataset_dir, 'prid2011', 'multi_shot', 'cam_a'
+            self.dataset_dir, 'saly2022', 'cam_a'
         )
         self.cam_b_dir = osp.join(
-            self.dataset_dir, 'prid2011', 'multi_shot', 'cam_b'
+            self.dataset_dir, 'saly2022', 'cam_b'
         )
 
         required_files = [self.dataset_dir, self.cam_a_dir, self.cam_b_dir]
@@ -44,8 +40,8 @@ class PRID2011(VideoDataset):
         if split_id >= len(splits):
             raise ValueError(
                 'split_id exceeds range, received {}, but expected between 0 and {}'
-                .format(split_id,
-                        len(splits) - 1)
+                    .format(split_id,
+                            len(splits) - 1)
             )
         split = splits[split_id]
         train_dirs, test_dirs = split['train'], split['test']
@@ -54,7 +50,7 @@ class PRID2011(VideoDataset):
         query = self.process_dir(test_dirs, cam1=True, cam2=False)
         gallery = self.process_dir(test_dirs, cam1=False, cam2=True)
 
-        super(PRID2011, self).__init__(train, query, gallery, **kwargs)
+        super(Saly2022, self).__init__(train, query, gallery, **kwargs)
 
     def process_dir(self, dirnames, cam1=True, cam2=True):
         tracklets = []
@@ -63,7 +59,7 @@ class PRID2011(VideoDataset):
         for dirname in dirnames:
             if cam1:
                 person_dir = osp.join(self.cam_a_dir, dirname)
-                img_names = glob.glob(osp.join(person_dir, '*.png'))
+                img_names = glob.glob(osp.join(person_dir, '*.jpg'))
                 assert len(img_names) > 0
                 img_names = tuple(img_names)
                 pid = dirname2pid[dirname]
@@ -71,7 +67,7 @@ class PRID2011(VideoDataset):
 
             if cam2:
                 person_dir = osp.join(self.cam_b_dir, dirname)
-                img_names = glob.glob(osp.join(person_dir, '*.png'))
+                img_names = glob.glob(osp.join(person_dir, '*.jpg'))
                 assert len(img_names) > 0
                 img_names = tuple(img_names)
                 pid = dirname2pid[dirname]

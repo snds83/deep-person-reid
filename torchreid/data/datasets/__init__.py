@@ -4,7 +4,7 @@ from .image import (
     GRID, PRID, CUHK01, CUHK02, CUHK03, MSMT17, CUHKSYSU, VIPeR, SenseReID,
     Market1501, DukeMTMCreID, University1652, iLIDS, Saly
 )
-from .video import PRID2011, Mars, DukeMTMCVidReID, iLIDSVID
+from .video import PRID2011, Mars, DukeMTMCVidReID, iLIDSVID, Saly2022
 from .dataset import Dataset, ImageDataset, VideoDataset
 
 __image_datasets = {
@@ -28,7 +28,8 @@ __video_datasets = {
     'mars': Mars,
     'ilidsvid': iLIDSVID,
     'prid2011': PRID2011,
-    'dukemtmcvidreid': DukeMTMCVidReID
+    'dukemtmcvidreid': DukeMTMCVidReID,
+    'saly2022': Saly2022
 }
 
 

@@ -3,9 +3,9 @@ model:
   pretrained: True
 
 data:
-  type: 'image'
-  sources: ['market1501']
-  targets: ['grid']
+  type: 'video'
+  sources: ['prid2011']
+  targets: ['prid2011']
   height: 256
   width: 128
   combineall: False
@@ -20,15 +20,15 @@ loss:
 train:
   optim: 'amsgrad'
   lr: 0.0015
-  max_epoch: 150
-  batch_size: 64
+  max_epoch: 350
+  batch_size: 70
   fixbase_epoch: 10
   open_layers: ['classifier']
   lr_scheduler: 'single_step'
   stepsize: [60]
 
 test:
-  batch_size: 300
+  batch_size: 200
   dist_metric: 'euclidean'
   normalize_feature: False
   evaluate: False
