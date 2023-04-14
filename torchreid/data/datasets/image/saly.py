@@ -49,11 +49,11 @@ class Saly(ImageDataset):
             print('Creating splits ...')
 
             splits = []
-            for _ in range(4):
+            for _ in range(6):
                 # randomly sample 100 IDs for train and use the rest 100 IDs for test
                 # (note: there are only 200 IDs appearing in both views)
-                pids = [i for i in range(1, 20)]
-                train_pids = random.sample(pids, 15)
+                pids = [i for i in range(1, 70)]
+                train_pids = random.sample(pids, 60)
                 train_pids.sort()
                 test_pids = [i for i in pids if i not in train_pids]
                 split = {'train': train_pids, 'test': test_pids}

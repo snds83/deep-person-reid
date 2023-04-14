@@ -1,22 +1,14 @@
 from __future__ import division, print_function, absolute_import
 import glob
 import os.path as osp
-
+import os
 from torchreid.utils import read_json
 
 from ..dataset import VideoDataset
 
 
 class Saly2022(VideoDataset):
-    """saly2022.
 
-    Reference:
-
-    Dataset statistics:
-        - identities: 12.
-        - tracklets: 24.
-        - cameras: 2.
-    """
     dataset_dir = 'saly2022'
     dataset_url = None
 
@@ -25,7 +17,7 @@ class Saly2022(VideoDataset):
         self.dataset_dir = osp.join(self.root, self.dataset_dir)
         self.download_dataset(self.dataset_dir, self.dataset_url)
 
-        self.split_path = osp.join(self.dataset_dir, 'splits_saly2022.json')
+        self.split_path = osp.join(self.dataset_dir, 'splits_saly.json')
         self.cam_a_dir = osp.join(
             self.dataset_dir, 'saly2022', 'cam_a'
         )
@@ -44,8 +36,12 @@ class Saly2022(VideoDataset):
                             len(splits) - 1)
             )
         split = splits[split_id]
-        train_dirs, test_dirs = split['train'], split['test']
+        #train_dirs, test_dirs = split['train'], split['test']
 
+        train_dirs = os.listdir(self.cam_a_dir)
+        test_dirs = os.listdir(self.cam_a_dir)
+
+        print("TRAIN DIR: ",  train_dirs)
         train = self.process_dir(train_dirs, cam1=True, cam2=True)
         query = self.process_dir(test_dirs, cam1=True, cam2=False)
         gallery = self.process_dir(test_dirs, cam1=False, cam2=True)
@@ -58,7 +54,11 @@ class Saly2022(VideoDataset):
 
         for dirname in dirnames:
             if cam1:
-                person_dir = osp.join(self.cam_a_dir, dirname)
+                print("=====================verify=======================")
+                print(dirname)
+                print(self.cam_a_dir)
+                person_dir = osp.join(self.cam_a_dir, str(dirname))
+                print(person_dir)
                 img_names = glob.glob(osp.join(person_dir, '*.jpg'))
                 assert len(img_names) > 0
                 img_names = tuple(img_names)
@@ -66,7 +66,7 @@ class Saly2022(VideoDataset):
                 tracklets.append((img_names, pid, 0))
 
             if cam2:
-                person_dir = osp.join(self.cam_b_dir, dirname)
+                person_dir = osp.join(self.cam_b_dir, str(dirname))
                 img_names = glob.glob(osp.join(person_dir, '*.jpg'))
                 assert len(img_names) > 0
                 img_names = tuple(img_names)

@@ -23,8 +23,8 @@ class DukeMTMCVidReID(VideoDataset):
         - identities: 702 (train) + 702 (test).
         - tracklets: 2196 (train) + 2636 (test).
     """
-    dataset_dir = 'dukemtmc-vidreid'
-    dataset_url = 'http://vision.cs.duke.edu/DukeMTMC/data/misc/DukeMTMC-VideoReID.zip'
+    dataset_dir = 'dukemtmcvidreid'
+    dataset_url = None#'http://vision.cs.duke.edu/DukeMTMC/data/misc/DukeMTMC-VideoReID.zip'
 
     def __init__(self, root='', min_seq_len=0, **kwargs):
         self.root = osp.abspath(osp.expanduser(root))

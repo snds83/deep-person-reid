@@ -4,13 +4,13 @@ model:
 
 data:
   type: 'video'
-  sources: ['prid2011']
-  targets: ['prid2011']
+  sources: ['saly2022']
+  targets: ['saly2022']
   height: 256
   width: 128
   combineall: False
   transforms: ['random_flip']
-  save_dir: 'log/osnet_x1_0_market1501_softmax'
+  save_dir: 'log/osnet_x1_0_mars_softmax'
 
 loss:
   name: 'softmax'
