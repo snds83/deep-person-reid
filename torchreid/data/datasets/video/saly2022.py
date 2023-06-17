@@ -38,8 +38,8 @@ class Saly2022(VideoDataset):
         split = splits[split_id]
         #train_dirs, test_dirs = split['train'], split['test']
 
-        train_dirs = os.listdir(self.cam_a_dir)
-        test_dirs = os.listdir(self.cam_a_dir)
+        train_dirs = os.listdir(self.cam_b_dir)
+        test_dirs = os.listdir(self.cam_b_dir)
 
         print("TRAIN DIR: ",  train_dirs)
         train = self.process_dir(train_dirs, cam1=True, cam2=True)
